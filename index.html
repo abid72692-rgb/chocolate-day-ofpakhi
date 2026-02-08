@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Sweetest Aru | Happy Chocolate Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital@1&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-cocoa: #2d1606;
+            --milk-choco: #5d3a1a;
+            --cream: #fff5e1;
+            --gold: #d4af37;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-cocoa);
+            color: var(--cream);
+            overflow-x: hidden;
+        }
+
+        /* --- Page 1: Welcome --- */
+        #page1 {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle, #4e2a12 0%, #2d1606 100%);
+            transition: opacity 1s ease-in-out;
+        }
+
+        .fade-in-text {
+            opacity: 0;
+            animation: fadeIn 2.5s forwards;
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 4rem; color: var(--gold); margin-bottom: 10px; }
+        p.subtitle { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic; }
+
+        .open-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: var(--gold);
+            color: var(--dark-cocoa);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .open-btn:hover { transform: scale(1.1); background: #f1c40f; }
+
+        /* --- Page 2: Chocolate Reveal --- */
+        #page2 {
+            display: none;
+            min-height: 100vh;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        .instruction { text-align: center; font-style: italic; color: var(--gold); margin-bottom: 40px; }
+
+        .choco-container {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+        }
+
+        .chocolate {
+            position: absolute;
+            width: 160px;
+            cursor: pointer;
+            transition: transform 0.4s ease, filter 0.3s;
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5));
+        }
+
+        .chocolate:hover { transform: scale(1.1) rotate(5deg); filter: brightness(1.2); }
+
+        /* Overlay for Memories */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(45, 22, 6, 0.96);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+
+        .memory-img {
+            max-width: 80%;
+            max-height: 55vh;
+            border: 8px solid var(--cream);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .memory-text {
+            margin-top: 25px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            max-width: 85%;
+            color: var(--gold);
+            line-height: 1.4;
+        }
+
+        .close-btn {
+            margin-top: 25px;
+            color: var(--cream);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 300;
+        }
+
+        /* --- Page 3: Final Surprise --- */
+        #page3 {
+            display: none;
+            height: 100vh;
+            text-align: center;
+            padding-top: 50px;
+            background: radial-gradient(circle, #5d3a1a 0%, #2d1606 100%);
+        }
+
+        .final-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--gold);
+            margin-top: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .chocolate { width: 110px; }
+            .memory-text { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="page1">
+        <h1 class="fade-in-text">Happy Chocolate Day</h1>
+        <p class="subtitle fade-in-text" style="animation-delay: 1s;">Aru, every chocolate reminds me of you…</p>
+        <button class="open-btn fade-in-text" style="animation-delay: 2s;" onclick="showChocolates()">Open the Chocolate Box</button>
+    </section>
+
+    <section id="page2">
+        <p class="instruction">Tap each chocolate to reveal a sweet memory...</p>
+        <div class="choco-container" id="chocoContainer"></div>
+    </section>
+
+    <div class="overlay" id="overlay">
+        <img src="" id="memoryImg" class="memory-img">
+        <p id="memoryText" class="memory-text"></p>
+        <span class="close-btn" onclick="closeOverlay()">Close & Pick Another</span>
+    </div>
+
+    <section id="page3">
+        <h2 class="memory-text" style="font-size: 2.2rem; margin-top: 20px;">For the Sweetest Person in My Life</h2>
+        <img src="aru_best.jpg" class="final-photo">
+        <div id="finalMessage" class="memory-text" style="margin-top: 30px; padding: 0 20px; color: #fff;"></div>
+    </section>
+
+    <script>
+        // Data containing your specific messages
+        const chocolates = [
+            { id: 1, name: 'Cadbury Dairy Milk', img: 'dairymilk.png', memory: 'memory1.jpg', msg: "Like Dairy Milk, you’re pure, soft, and full of sweetness… the kind that stays forever." },
+            { id: 2, name: 'Ferrero Rocher', img: 'ferrero.png', memory: 'memory2.jpg', msg: "Ferrero Rocher is rare and special… just like you. Not everyone gets something this precious." },
+            { id: 3, name: 'KitKat', img: 'kitkat.png', memory: 'memory3.jpg', msg: "You became my favorite break… the only pause my heart ever needed." },
+            { id: 4, name: 'Snickers', img: 'snickers.png', memory: 'memory4.jpg', msg: "Snickers fixes everything… just like you fixed parts of me I didn’t even understand." },
+            { id: 5, name: 'Galaxy', img: 'galaxy.png', memory: 'memory5.jpg', msg: "Galaxy is smooth and endless… just like the way my feelings flow for you." },
+            { id: 6, name: 'Kinder Bueno', img: 'kinder.png', memory: 'memory6.jpg', msg: "Kinder Bueno brings unexpected happiness… just like you walked in and changed everything." }
+        ];
+
+        let clickedCount = 0;
+
+        function showChocolates() {
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+            
+            const container = document.getElementById('chocoContainer');
+            chocolates.forEach((choco) => {
+                const img = document.createElement('img');
+                img.src = choco.img;
+                img.className = 'chocolate';
+                // Random positioning on screen
+                img.style.top = Math.random() * 65 + 5 + '%';
+                img.style.left = Math.random() * 70 + 5 + '%';
+                img.onclick = () => revealMemory(choco, img);
+                container.appendChild(img);
+            });
+        }
+
+        function revealMemory(choco, imgElement) {
+            document.getElementById('memoryImg').src = choco.memory;
+            document.getElementById('memoryText').innerText = choco.msg;
+            document.getElementById('overlay').style.display = 'flex';
+            
+            if(!imgElement.classList.contains('opened')) {
+                imgElement.classList.add('opened');
+                imgElement.style.opacity = '0.3'; // Fades chocolate after selection
+                clickedCount++;
+            }
+        }
+
+        function closeOverlay() {
+            document.getElementById('overlay').style.display = 'none';
+            if(clickedCount === chocolates.length) {
+                setTimeout(showFinalSurprise, 500);
+            }
+        }
+
+        function showFinalSurprise() {
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('page3').style.display = 'block';
+            document.getElementById('finalMessage').innerText = "No chocolate in this world is sweeter than you.\n\nYou are, and always will be, my sweetest person. Happy Chocolate Day, Aru! ❤️";
+        }
+    </script>
+</body>
+</html>
